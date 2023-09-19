@@ -15,7 +15,7 @@
       </div>
     </nav>
   </header>
-  <InformationModal v-bind:isOpen="isOpen" @close-modal="toggleModal" />
+  <InformationModal v-if="isOpen" @close-modal="toggleModal" />
 </template>
 
 <script setup lang="ts">

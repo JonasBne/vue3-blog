@@ -1,5 +1,5 @@
 <template>
-  <PrimaryModal v-bind:isOpen="isOpen">
+  <PrimaryModal>
     <h1 class="font-bold">About</h1>
     <p>
       The Local Weather app allows you to track the current and future weather of cities of your
@@ -18,11 +18,4 @@
 </template>
 <script setup lang="ts">
 import PrimaryModal from './PrimaryModal.vue'
-
-defineProps({
-  isOpen: {
-    type: Boolean,
-    default: false
-  }
-})
 </script>
