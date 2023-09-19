@@ -2,6 +2,6 @@
 
 <template>
   <main>
-    <TheWelcome />
+    <div>hello world</div>
   </main>
 </template>
