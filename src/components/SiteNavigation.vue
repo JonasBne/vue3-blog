@@ -6,14 +6,22 @@
         <div class="font-bold">Local Weather</div>
       </RouterLink>
       <div class="flex gap-x-4">
-        <font-awesome-icon icon="fa-circle-info" class="hover:cursor-pointer" />
+        <font-awesome-icon
+          icon="fa-circle-info"
+          class="hover:cursor-pointer"
+          @click="toggleModal"
+        />
         <font-awesome-icon icon="fa-plus" class="hover:cursor-pointer" />
       </div>
     </nav>
   </header>
-  <InformationModal />
+  <InformationModal v-bind:isOpen="isOpen" @close-modal="toggleModal" />
 </template>
 
 <script setup lang="ts">
 import InformationModal from './InformationModal.vue'
+import { ref } from 'vue'
+
+const isOpen = ref(false)
+const toggleModal = () => (isOpen.value = !isOpen.value)
 </script>
