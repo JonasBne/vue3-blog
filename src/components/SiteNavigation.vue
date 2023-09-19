@@ -11,6 +11,9 @@
       </div>
     </nav>
   </header>
+  <InformationModal />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import InformationModal from './InformationModal.vue'
+</script>
