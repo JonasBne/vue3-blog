@@ -3,7 +3,7 @@
     <nav class="flex items-center justify-between">
       <RouterLink to="home" class="flex items-center gap-x-4 hover:cursor-pointer">
         <font-awesome-icon icon="fa-sun" />
-        <div class="font-bold">Local Weather</div>
+        <div class="font-bold">Vue Weather</div>
       </RouterLink>
       <div class="flex gap-x-4">
         <font-awesome-icon
