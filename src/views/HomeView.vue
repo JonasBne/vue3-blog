@@ -2,19 +2,35 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+interface SearchResult {
+  id: number
+  name: string
+  region: string
+  country: string
+  lat: number
+  lon: number
+  url: string
+}
+
 const apiKey = import.meta.env.VITE_API_KEY
 
 const router = useRouter()
 const route = useRoute()
 
 const query = ref(route.query.search || '')
+const queryResults = ref<SearchResult[] | null>(null)
 
 watch(query, (newQuery) => {
   router.push({ query: { search: newQuery } })
 })
 
-const handleBlur = async () =>
-  await fetch(`https://api.weatherapi.com/v1/search.json?q=Antwerp&key=${apiKey}`)
+watch(queryResults, (newQueryResults) => console.log('query results', newQueryResults))
+
+const handleBlur = async () => {
+  const response = await fetch(`https://api.weatherapi.com/v1/search.json?q=Antwerp&key=${apiKey}`)
+  const data = await response.json()
+  queryResults.value = data
+}
 </script>
 
 <template>
