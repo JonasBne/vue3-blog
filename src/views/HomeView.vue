@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
-const query = ref('')
+const query = ref(route.query.search || '')
 
 watch(query, (newQuery) => {
   router.push({ query: { search: newQuery } })
