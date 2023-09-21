@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-interface SearchResult {
+interface QueryResult {
   id: number
   name: string
   region: string
@@ -18,7 +18,7 @@ const router = useRouter()
 const route = useRoute()
 
 const query = ref(route.query.search || '')
-const queryResults = ref<SearchResult[] | null>(null)
+const queryResults = ref<QueryResult[] | null>(null)
 const searchError = ref(false)
 
 watch(query, (newQuery) => {
@@ -45,6 +45,21 @@ const handleBlur = async () => {
     searchError.value = true
   }
 }
+
+const handleRedirect = (queryResult: QueryResult) => {
+  console.log('clicked')
+  router.push({
+    name: 'cityView',
+    params: {
+      city: queryResult.name
+    },
+    query: {
+      lat: queryResult.lat,
+      lon: queryResult.lon,
+      preview: 'true'
+    }
+  })
+}
 </script>
 
 <template>
@@ -61,7 +76,7 @@ const handleBlur = async () => {
       No results were found for "{{ query }}"
     </li>
     <template v-else>
-      <li v-for="result in queryResults" :key="result.id">
+      <li v-for="result in queryResults" :key="result.id" @click="handleRedirect(result)">
         {{ result.name }}
       </li>
     </template>
