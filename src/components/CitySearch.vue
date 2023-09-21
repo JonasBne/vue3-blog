@@ -51,7 +51,7 @@ const handleBlur = async () => {
     v-model="query"
     @blur="handleBlur"
   />
-  <ul class="p-2 absolute w-full shadow-md bg-slate-600" v-if="queryResults">
+  <ul class="p-2 absolute w-full shadow-md bg-slate-600" v-if="query && queryResults">
     <p v-if="searchError">Something went wrong. Please try again.</p>
     <li v-if="!searchError && queryResults.length === 0 && query.length > 0">
       No results were found for "{{ query }}"
