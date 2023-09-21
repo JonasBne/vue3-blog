@@ -22,6 +22,10 @@ const queryResults = ref<SearchResult[] | null>(null)
 const searchError = ref(false)
 
 watch(query, (newQuery) => {
+  if (newQuery.length === 0) {
+    router.replace({ query: {} })
+    return
+  }
   router.push({ query: { search: newQuery } })
 })
 
