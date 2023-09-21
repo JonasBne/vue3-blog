@@ -24,10 +24,10 @@ watch(query, (newQuery) => {
   router.push({ query: { search: newQuery } })
 })
 
-watch(queryResults, (newQueryResults) => console.log('query results', newQueryResults))
-
 const handleBlur = async () => {
-  const response = await fetch(`https://api.weatherapi.com/v1/search.json?q=Antwerp&key=${apiKey}`)
+  const response = await fetch(
+    `https://api.weatherapi.com/v1/search.json?q=${query.value}&key=${apiKey}`
+  )
   const data = await response.json()
   queryResults.value = data
 }
@@ -38,11 +38,16 @@ const handleBlur = async () => {
     <div class="mt-4">
       <input
         name="query"
-        class="bg-transparent text-white border-b border-b-weather-secondary w-full p-2 focus:outline-none focus:shadow-xl focus:border-weather-secondary"
+        class="bg-transparent text-white border-b w-full p-2 focus:outline-none focus:shadow-xl"
         placeholder="Search for a city..."
         v-model="query"
         @blur="handleBlur"
       />
+      <ul class="p-2 absolute w-full shadow-md bg-slate-600" v-if="queryResults">
+        <li v-for="result in queryResults" :key="result.id">
+          {{ result.name }}
+        </li>
+      </ul>
     </div>
   </main>
 </template>
