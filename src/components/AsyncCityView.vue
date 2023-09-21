@@ -21,11 +21,19 @@ const getWeatherData = async () => {
 }
 
 const weatherData = await getWeatherData()
-console.log('weatherData', weatherData)
+const { location, current } = weatherData
 </script>
 
 <template>
-  <main class="w-full">
-    <div>preview page for {{ city }}</div>
+  <main class="flex flex-col items-center w-full my-4">
+    <div class="flex flex-col items-center gap-y-2">
+      <div class="font-bold text-2xl">{{ location.name }}</div>
+      <div class="text-xs">{{ location.localtime }}</div>
+    </div>
+    <div class="flex flex-col items-center mt-8 gap-y-2">
+      <div class="font-bold text-5xl">{{ current.temp_c }} ˚C</div>
+      <div class="text-xs">Feels like {{ current.feelslike_c }} ˚C</div>
+      <img alt="Weather icon" :src="current.condition.icon" class="mt-4" />
+    </div>
   </main>
 </template>
