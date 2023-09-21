@@ -1,7 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AsyncCityView from '@/components/AsyncCityView.vue'
+</script>
 
 <template>
   <main class="w-full">
-    <div>preview page</div>
+    <Suspense>
+      <AsyncCityView />
+      <template #fallback> Loading weather data... </template>
+    </Suspense>
   </main>
 </template>
