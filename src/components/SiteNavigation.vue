@@ -46,7 +46,7 @@ const toggleModal = () => (isOpen.value = !isOpen.value)
 <template>
   <header class="sticky top-0 shadow-xl w-full p-4">
     <nav class="flex items-center justify-between">
-      <RouterLink to="home" class="flex items-center gap-x-4 hover:cursor-pointer">
+      <RouterLink to="/" class="flex items-center gap-x-4 hover:cursor-pointer">
         <font-awesome-icon icon="fa-sun" />
         <div class="font-bold">Vue Weather</div>
       </RouterLink>
