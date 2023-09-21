@@ -1,57 +1,46 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import InformationModal from './InformationModal.vue'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
+import { uid } from 'uid'
 
 interface CityInformation {
-  id: `${string}-${string}-${string}-${string}-${string}`
+  id: string
   name: string
   lat: string
   lon: string
 }
 
 const route = useRoute()
-const params = ref(route.params)
-const query = route.query
-const isPreview = ref(query.preview === 'true')
-
-watch(
-  () => route.query.preview,
-  (newPreview) => {
-    isPreview.value = newPreview === 'true'
-  }
-)
-
-watch(
-  () => route.params,
-  (newParams) => {
-    params.value = newParams
-  }
-)
-
-const isOpen = ref(false)
-const toggleModal = () => (isOpen.value = !isOpen.value)
+const router = useRouter()
 
 const savedCities = ref<CityInformation[]>([])
 
 const addCity = () => {
-  if (localStorage.getItem('cities')) {
-    const cities = JSON.parse(localStorage.getItem('cities') || '')
+  if (localStorage.getItem('savedCities')) {
+    const cities = JSON.parse(localStorage.getItem('savedCities') || '')
     savedCities.value = cities
   }
 
   const cityInformation = {
-    id: crypto.randomUUID(),
-    name: params.value.city,
-    lat: query.lat,
-    lon: query.lon
+    id: uid(),
+    state: route.params.state,
+    name: route.params.city,
+    lat: route.query.lat,
+    lon: route.query.lon
   } as CityInformation
 
-  console.log('query', query, params)
-
   savedCities.value.push(cityInformation)
-  localStorage.setItem('cities', JSON.stringify(savedCities.value))
+  localStorage.setItem('savedCities', JSON.stringify(savedCities.value))
+
+  let query = Object.assign({}, route.query)
+  delete query.preview
+  query.id = cityInformation.id
+  router.replace({ query })
 }
+
+const isOpen = ref(false)
+const toggleModal = () => (isOpen.value = !isOpen.value)
 </script>
 
 <template>
@@ -71,7 +60,7 @@ const addCity = () => {
           icon="fa-plus"
           class="hover:cursor-pointer"
           @click="addCity"
-          v-if="isPreview"
+          v-if="route.query.preview === 'true'"
         />
       </div>
     </nav>
