@@ -6,7 +6,7 @@ import { uid } from 'uid'
 import { getItemLocalStorage } from '@/utils/getItemLocalStorage'
 import { addItemLocalStorage } from '@/utils/addItemLocalStorage'
 
-interface CityInformation {
+export interface CityInformation {
   id: string
   name: string
   lat: string
