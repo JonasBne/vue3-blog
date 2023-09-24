@@ -44,6 +44,13 @@ const addCity = () => {
 
 const isOpen = ref(false)
 const toggleModal = () => (isOpen.value = !isOpen.value)
+
+const removeCity = () => {
+  const savedCities = getItemLocalStorage('savedCities') as CityInformation[]
+  const filteredCities = savedCities.filter((city) => city.id !== route.query.id)
+  addItemLocalStorage('savedCities', filteredCities)
+  router.push('/')
+}
 </script>
 
 <template>
@@ -64,6 +71,12 @@ const toggleModal = () => (isOpen.value = !isOpen.value)
           class="hover:cursor-pointer"
           @click="addCity"
           v-if="route.query.preview === 'true'"
+        />
+        <font-awesome-icon
+          icon="fa-trash"
+          class="hover:cursor-pointer"
+          @click="removeCity"
+          v-if="!route.query.preview"
         />
       </div>
     </nav>
