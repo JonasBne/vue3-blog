@@ -29,7 +29,7 @@ watch(query, (newQuery) => {
   router.push({ query: { search: newQuery } })
 })
 
-const handleBlur = async () => {
+const handleChange = async () => {
   if (!query.value) {
     queryResults.value = null
     return
@@ -68,7 +68,7 @@ const handleRedirect = (queryResult: QueryResult) => {
     class="bg-transparent text-white border-b w-full p-2 focus:outline-none focus:shadow-xl"
     placeholder="Search for a city..."
     v-model="query"
-    @blur="handleBlur"
+    @input="handleChange"
   />
   <ul class="p-2 absolute w-full shadow-md bg-slate-600" v-if="query && queryResults">
     <p v-if="searchError">Something went wrong. Please try again.</p>

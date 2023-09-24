@@ -76,7 +76,7 @@ const removeCity = () => {
           icon="fa-trash"
           class="hover:cursor-pointer"
           @click="removeCity"
-          v-if="!route.query.preview"
+          v-if="route.params.city && !route.query.preview"
         />
       </div>
     </nav>
