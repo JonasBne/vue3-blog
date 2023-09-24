@@ -3,6 +3,8 @@ import { useRoute, useRouter } from 'vue-router'
 import InformationModal from './InformationModal.vue'
 import { ref } from 'vue'
 import { uid } from 'uid'
+import { getItemLocalStorage } from '@/utils/getItemLocalStorage'
+import { addItemLocalStorage } from '@/utils/addItemLocalStorage'
 
 interface CityInformation {
   id: string
@@ -17,8 +19,9 @@ const router = useRouter()
 const savedCities = ref<CityInformation[]>([])
 
 const addCity = () => {
-  if (localStorage.getItem('savedCities')) {
-    const cities = JSON.parse(localStorage.getItem('savedCities') || '')
+  const cities = getItemLocalStorage('savedCities')
+
+  if (cities) {
     savedCities.value = cities
   }
 
@@ -31,7 +34,7 @@ const addCity = () => {
   } as CityInformation
 
   savedCities.value.push(cityInformation)
-  localStorage.setItem('savedCities', JSON.stringify(savedCities.value))
+  addItemLocalStorage('savedCities', savedCities.value)
 
   let query = Object.assign({}, route.query)
   delete query.preview
